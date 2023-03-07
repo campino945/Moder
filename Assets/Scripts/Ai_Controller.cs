@@ -24,12 +24,25 @@ public class Ai_Controller : MonoBehaviour
     [Header("AI Attributes")]
     public float aiMoveTime;
     public float aiTimer;
+    public float aiListeningTime;
+    public float aiListeningTimer;
+    public float aiSmellTime;
+    public float aiSmellTimer;
+    public float rTime;
+    public float rTimer;
 
     public int goalInt;
 
     bool hunt;
 
     private float movementScore;
+
+    private int r1;
+    private int r2;
+    private int r3;
+
+    private Vector3 prePos;
+    private Vector3 ranPos;
 
 
     void Start()
@@ -41,6 +54,7 @@ public class Ai_Controller : MonoBehaviour
         goal4V = goal4.position;
 
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
+        player = GameObject.Find("Player").GetComponent<Transform>();
 
         goalInt = UnityEngine.Random.Range(0, 3);
 
@@ -50,17 +64,21 @@ public class Ai_Controller : MonoBehaviour
     void Update()
     {
 
+        playerScript.movementScore = Mathf.Round(playerScript.movementScore);
         movementScore = Mathf.Clamp(playerScript.movementScore, 0, 200);
 
-        movementScore = Mathf.Round(movementScore);
-
         aiTimer -= Time.deltaTime;
+        aiListeningTimer -= Time.deltaTime;
+        aiSmellTimer -= Time.deltaTime;
 
-        if (movementScore >= 30 || playerScript.lightScore >= 10)
+
+        if (movementScore >= 50)
         {
             hunt = true;
+            aiSmellTimer = aiSmellTime;
+            rTimer = rTime;
         }
-        else
+        else if(aiSmellTimer <= 0)
         {
             hunt = false;
         }
@@ -112,10 +130,23 @@ public class Ai_Controller : MonoBehaviour
     public void Hunt()
     {
 
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        if(aiListeningTimer <= 0)
+        {
+            agent.SetDestination(player.position);
+            prePos = agent.destination;
+            aiListeningTimer = aiListeningTime;
+        }
 
+        if(rTimer <= 0)
+        {
+            r1 = UnityEngine.Random.Range(-3, 3);
+            r2 = UnityEngine.Random.Range(-3, 3);
+            r3 = UnityEngine.Random.Range(-3, 3);
 
-        agent.SetDestination(player.position);
+            ranPos += new Vector3(r1, r2, r3);
+            agent.SetDestination(ranPos);
+        }
+        
 
     }
 }
