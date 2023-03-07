@@ -26,12 +26,23 @@ public class Ai_Controller : MonoBehaviour
     public float aiTimer;
     public float aiListeningTime;
     public float aiListeningTimer;
+    public float aiSmellTime;
+    public float aiSmellTimer;
+    public float rTime;
+    public float rTimer;
 
     public int goalInt;
 
     bool hunt;
 
     private float movementScore;
+
+    private int r1;
+    private int r2;
+    private int r3;
+
+    private Vector3 prePos;
+    private Vector3 ranPos;
 
 
     void Start()
@@ -58,12 +69,16 @@ public class Ai_Controller : MonoBehaviour
 
         aiTimer -= Time.deltaTime;
         aiListeningTimer -= Time.deltaTime;
+        aiSmellTimer -= Time.deltaTime;
+
 
         if (movementScore >= 50)
         {
             hunt = true;
+            aiSmellTimer = aiSmellTime;
+            rTimer = rTime;
         }
-        else
+        else if(aiSmellTimer <= 0)
         {
             hunt = false;
         }
@@ -115,10 +130,21 @@ public class Ai_Controller : MonoBehaviour
     public void Hunt()
     {
 
-        if(aiListeningTimer < 0)
+        if(aiListeningTimer <= 0)
         {
             agent.SetDestination(player.position);
+            prePos = agent.destination;
             aiListeningTimer = aiListeningTime;
+        }
+
+        if(rTimer <= 0)
+        {
+            r1 = UnityEngine.Random.Range(-3, 3);
+            r2 = UnityEngine.Random.Range(-3, 3);
+            r3 = UnityEngine.Random.Range(-3, 3);
+
+            ranPos += new Vector3(r1, r2, r3);
+            agent.SetDestination(ranPos);
         }
         
 
