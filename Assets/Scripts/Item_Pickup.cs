@@ -22,7 +22,6 @@ public class Item_Pickup : MonoBehaviour
     private GameObject itemtext;
     
 
-    RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()

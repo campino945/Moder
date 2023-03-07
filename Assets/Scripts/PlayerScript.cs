@@ -49,6 +49,7 @@ public class PlayerScript : MonoBehaviour
         {
             movementScore = 0;
         }
+        
 
 
         moveText.text = "Sound " + Mathf.Round(movementScore);

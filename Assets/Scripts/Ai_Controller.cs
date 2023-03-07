@@ -24,6 +24,8 @@ public class Ai_Controller : MonoBehaviour
     [Header("AI Attributes")]
     public float aiMoveTime;
     public float aiTimer;
+    public float aiListeningTime;
+    public float aiListeningTimer;
 
     public int goalInt;
 
@@ -41,6 +43,7 @@ public class Ai_Controller : MonoBehaviour
         goal4V = goal4.position;
 
         playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
+        player = GameObject.Find("Player").GetComponent<Transform>();
 
         goalInt = UnityEngine.Random.Range(0, 3);
 
@@ -50,13 +53,13 @@ public class Ai_Controller : MonoBehaviour
     void Update()
     {
 
+        playerScript.movementScore = Mathf.Round(playerScript.movementScore);
         movementScore = Mathf.Clamp(playerScript.movementScore, 0, 200);
 
-        movementScore = Mathf.Round(movementScore);
-
         aiTimer -= Time.deltaTime;
+        aiListeningTimer -= Time.deltaTime;
 
-        if (movementScore >= 30 || playerScript.lightScore >= 10)
+        if (movementScore >= 50)
         {
             hunt = true;
         }
@@ -112,10 +115,12 @@ public class Ai_Controller : MonoBehaviour
     public void Hunt()
     {
 
-        player = GameObject.Find("Player").GetComponent<Transform>();
-
-
-        agent.SetDestination(player.position);
+        if(aiListeningTimer < 0)
+        {
+            agent.SetDestination(player.position);
+            aiListeningTimer = aiListeningTime;
+        }
+        
 
     }
 }
