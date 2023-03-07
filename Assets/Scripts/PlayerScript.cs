@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
@@ -13,10 +14,18 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody rb;
 
     private TMP_Text moveText;
+
+    public bool[] items = new bool[3];
     
     // Start is called before the first frame update
     void Start()
     {
+
+        for (int i = 0;i < 3; i++)
+        {
+            items[i] = false;
+        }
+        
         movementScore = 0f;
         lightScore = 0f;
 
