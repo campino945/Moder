@@ -15,13 +15,13 @@ public class PlayerScript : MonoBehaviour
 
     private TMP_Text moveText;
 
-    public bool[] items = new bool[3];
+    public bool[] items = new bool[4];
     
     // Start is called before the first frame update
     void Start()
     {
 
-        for (int i = 0;i < 3; i++)
+        for (int i = 0;i <= 3; i++)
         {
             items[i] = false;
         }

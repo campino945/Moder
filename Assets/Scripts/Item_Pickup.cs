@@ -9,6 +9,7 @@ public class Item_Pickup : MonoBehaviour
     private Collider itemCollider;
     private GameObject item;
 
+    private PlayerScript playerScript;
 
     [SerializeField]
     private bool ItemClose;
@@ -16,10 +17,9 @@ public class Item_Pickup : MonoBehaviour
     [SerializeField]
     private LayerMask LayerMask;
 
-    private Transform mainCamera;
-    private Transform cameraHolder;
-
     private GameObject itemtext;
+
+    public uint itemId;
     
 
 
@@ -28,9 +28,26 @@ public class Item_Pickup : MonoBehaviour
     {
         ItemClose = false;
 
-        mainCamera = GameObject.Find("PlayerCam").GetComponent<Transform>();
-        cameraHolder = GameObject.Find("CameraHolder").GetComponent<Transform>();
+        playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
+        
         itemtext = GameObject.Find("ItemPickupText");
+
+        if(gameObject.name == "SparkPlug")
+        {
+            itemId = 0;
+        }
+        else if(gameObject.name == "JerryCan")
+        {
+            itemId = 1;
+        }
+        else if (gameObject.name == "ToolBox")
+        {
+            itemId = 2;
+        }
+        else if (gameObject.name == "CarBattery")
+        {
+            itemId = 3;
+        }
     }
 
     // Update is called once per frame
@@ -45,8 +62,27 @@ public class Item_Pickup : MonoBehaviour
             {
                 item = itemCollider.gameObject;
 
+                if (item.name == "SparkPlug")
+                {
+                    itemId = 0;
+                }
+                else if (item.name == "JerryCan")
+                {
+                    itemId = 1;
+                }
+                else if (item.name == "ToolBox")
+                {
+                    itemId = 2;
+                }
+                else if (item.name == "CarBattery")
+                {
+                    itemId = 3;
+                }
+
                 item.SetActive(false);
                 ItemClose = false;
+
+                playerScript.items[itemId] = true;
             }
         }
         else
