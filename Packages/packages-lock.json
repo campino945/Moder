@@ -177,7 +177,7 @@
     },
     "com.unity.searcher": {
       "version": "4.9.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -200,11 +200,7 @@
     },
     "com.unity.shadergraph": {
       "version": "12.1.2",
-<<<<<<< Updated upstream
       "depth": 0,
-=======
-      "depth": 1,
->>>>>>> Stashed changes
       "source": "builtin",
       "dependencies": {
         "com.unity.render-pipelines.core": "12.1.2",

@@ -13,10 +13,7 @@
     "com.unity.purchasing": "4.1.2",
     "com.unity.render-pipelines.high-definition": "12.1.2",
     "com.unity.render-pipelines.universal": "12.1.2",
-<<<<<<< Updated upstream
     "com.unity.shadergraph": "12.1.2",
-=======
->>>>>>> Stashed changes
     "com.unity.terrain-tools": "4.0.5",
     "com.unity.test-framework": "1.1.29",
     "com.unity.textmeshpro": "3.0.6",
